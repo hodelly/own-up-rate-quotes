@@ -12,8 +12,8 @@ class RateQuoteInput extends Component {
     this.state = {
       loanSize: '',
       creditScore:'',
-      propertyType:'',
-      occupancy:'',
+      propertyType:'Property Type',
+      occupancy:'Occupancy',
 
     };
   }
@@ -24,18 +24,21 @@ class RateQuoteInput extends Component {
     });
   }
 
-  verifyInputs = () => {
+  handlePropertyTypeChange = (event) => {
+    this.setState({propertyType: event.target.id});
+  }
 
+  handleOccupancyChange = (event) => {
+    this.setState({occupancy: event.target.id});
+  }
+
+  verifyInputs = () => {
+    console.log("hereee")
   }
 
   handleClick = (event) => {
-    let parameters = {
-      loanSize: this.state.loanSize,
-      creditScore: this.state.creditScore,
-      propertyType: this.state.propertyType, //take out spaces and upper case
-      occupancy: this.state.occupancy, //take out spaces and upper case
-    }
-    this.props.getRateQuotes(parameters);
+    this.verifyInputs();
+    this.props.getRateQuotes(this.state.loanSize, this.state.creditScore, this.state.propertyType, this.state.occupancy);
   }
 
   render() {
@@ -46,11 +49,11 @@ class RateQuoteInput extends Component {
         <input id="loanSize" type="number" onChange={this.handleChange}/>
 
         <p>Property Type</p>
-        <DropdownButton id="dropdown-basic-button" title="Dropdown button">
-          <Dropdown.Item href="#/action-1">Single Family</Dropdown.Item>
-          <Dropdown.Item href="#/action-2">Condo</Dropdown.Item>
-          <Dropdown.Item href="#/action-3">Town House</Dropdown.Item>
-          <Dropdown.Item href="#/action-4">Multi Family</Dropdown.Item>
+        <DropdownButton id="dropdown-basic-button" title={this.state.propertyType}>
+          <Dropdown.Item onClick={this.handlePropertyTypeChange} id="SingleFamily">Single Family</Dropdown.Item>
+          <Dropdown.Item onClick={this.handlePropertyTypeChange} id="Condo">Condo</Dropdown.Item>
+          <Dropdown.Item onClick={this.handlePropertyTypeChange} id="Townhouse">Townhouse</Dropdown.Item>
+          <Dropdown.Item onClick={this.handlePropertyTypeChange} id="MultiFamily">Multi Family</Dropdown.Item>
 
         </DropdownButton>
 
@@ -58,10 +61,10 @@ class RateQuoteInput extends Component {
         <input id="creditScore" type="number" onChange={this.handleChange}/>
 
         <p>Occupancy</p>
-        <DropdownButton id="dropdown-basic-button" title="Dropdown button">
-          <Dropdown.Item href="#/action-1">Primary Residence</Dropdown.Item>
-          <Dropdown.Item href="#/action-2">Secondary Residence</Dropdown.Item>
-          <Dropdown.Item href="#/action-3">Investment</Dropdown.Item>
+        <DropdownButton id="dropdown-basic-button" title={this.state.occupancy} onChange={this.handleChange}>
+          <Dropdown.Item onClick={this.handleOccupancyChange} id="Primary">Primary Residence</Dropdown.Item>
+          <Dropdown.Item onClick={this.handleOccupancyChange} id="Secondary">Secondary Residence</Dropdown.Item>
+          <Dropdown.Item onClick={this.handleOccupancyChange} id="Investment">Investment</Dropdown.Item>
         </DropdownButton>
         </div>
         <div id="button">
