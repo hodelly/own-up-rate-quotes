@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import DropdownButton from 'react-bootstrap/DropdownButton';
-import Dropdown from 'react-bootstrap/Dropdown';
-import Button from 'react-bootstrap/Button';
+import { DropdownButton, Button, Dropdown, Form , Row, Col} from 'react-bootstrap';
+// import Dropdown from 'react-bootstrap/Dropdown';
+// import Button from 'react-bootstrap/Button';
 import { getRateQuotes } from '../actions';
+
+import '../css/RateQuoteInput.css';
 
 
 class RateQuoteInput extends Component {
@@ -17,7 +19,10 @@ class RateQuoteInput extends Component {
 
     };
   }
-
+  testing = (num) => {
+    if (num === 0) return true;
+    else return false;
+  }
   handleChange = (event) => {
     this.setState({
       [event.target.id]: event.target.value,
@@ -33,44 +38,72 @@ class RateQuoteInput extends Component {
   }
 
   verifyInputs = () => {
-    console.log("hereee")
+    // check credit score integer between 300 and 800
+    if (300 > this.state.creditScore || this.state.creditScore > 800) {
+      return false;
+    }
+    // make sure all inputs have been entered
+    if (this.state.propertyType === 'Property Type' || this.state.occupancy === 'Occupancy' ||
+        this.state.loanSize === '' || this.state.creditScore === '') {
+      return false;
+    }
+    return true;
   }
 
   handleClick = (event) => {
-    this.verifyInputs();
-    this.props.getRateQuotes(this.state.loanSize, this.state.creditScore, this.state.propertyType, this.state.occupancy);
+    if (this.verifyInputs()) {
+      this.props.getRateQuotes(this.state.loanSize, this.state.creditScore, this.state.propertyType, this.state.occupancy);
+    }
   }
 
   render() {
     return(
-      <div className="input_section">
-        <div id="inputs">
-        <p>Loan Size</p>
-        <input id="loanSize" type="number" onChange={this.handleChange}/>
 
-        <p>Property Type</p>
-        <DropdownButton id="dropdown-basic-button" title={this.state.propertyType}>
-          <Dropdown.Item onClick={this.handlePropertyTypeChange} id="SingleFamily">Single Family</Dropdown.Item>
-          <Dropdown.Item onClick={this.handlePropertyTypeChange} id="Condo">Condo</Dropdown.Item>
-          <Dropdown.Item onClick={this.handlePropertyTypeChange} id="Townhouse">Townhouse</Dropdown.Item>
-          <Dropdown.Item onClick={this.handlePropertyTypeChange} id="MultiFamily">Multi Family</Dropdown.Item>
+      <Form>
+        <div className="input_section">
+        <div className="input_column">
 
-        </DropdownButton>
+          <Form.Group className="input">
+            <Form.Label>Loan Size</Form.Label>
 
-        <p>Credit Score</p>
-        <input id="creditScore" type="number" onChange={this.handleChange}/>
+            <Form.Control id="loanSize" type="number" onChange={this.handleChange}/>
+          </Form.Group>
 
-        <p>Occupancy</p>
-        <DropdownButton id="dropdown-basic-button" title={this.state.occupancy} onChange={this.handleChange}>
-          <Dropdown.Item onClick={this.handleOccupancyChange} id="Primary">Primary Residence</Dropdown.Item>
-          <Dropdown.Item onClick={this.handleOccupancyChange} id="Secondary">Secondary Residence</Dropdown.Item>
-          <Dropdown.Item onClick={this.handleOccupancyChange} id="Investment">Investment</Dropdown.Item>
-        </DropdownButton>
+          <Form.Group className="input">
+            <Form.Label>Credit Score</Form.Label>
+            <Form.Control id="creditScore" type="number" onChange={this.handleChange}/>
+          </Form.Group>
         </div>
-        <div id="button">
-           <Button variant="outline-info" onClick={this.handleClick}>Quote Rates</Button>
+        <div className="input_column">
+          <div className="input">
+
+            <p>Property Type</p>
+            <DropdownButton id="dropbutton" variant="secondary" title={this.state.propertyType}>
+              <Dropdown.Item onClick={this.handlePropertyTypeChange} className="dropitem" id="SingleFamily">Single Family</Dropdown.Item>
+              <Dropdown.Item onClick={this.handlePropertyTypeChange} className="dropitem" id="Condo">Condo</Dropdown.Item>
+              <Dropdown.Item onClick={this.handlePropertyTypeChange} className="dropitem" id="Townhouse">Townhouse</Dropdown.Item>
+              <Dropdown.Item onClick={this.handlePropertyTypeChange} className="dropitem" id="MultiFamily">Multi Family</Dropdown.Item>
+
+            </DropdownButton>
+
+          </div>
+          <div className="input">
+
+
+            <p>Occupancy</p>
+            <DropdownButton id="dropbutton" variant="secondary" title={this.state.occupancy} onChange={this.handleChange}>
+              <Dropdown.Item onClick={this.handleOccupancyChange} className="dropitem" id="Primary">Primary Residence</Dropdown.Item>
+              <Dropdown.Item onClick={this.handleOccupancyChange} className="dropitem" id="Secondary">Secondary Residence</Dropdown.Item>
+              <Dropdown.Item onClick={this.handleOccupancyChange} className="dropitem" id="Investment">Investment</Dropdown.Item>
+            </DropdownButton>
+          </div>
+          <div id="button">
+             <Button variant="outline-info" onClick={this.handleClick}>Quote Rates</Button>
+          </div>
         </div>
-      </div>
+        </div>
+      </Form>
+
 
     )
 
