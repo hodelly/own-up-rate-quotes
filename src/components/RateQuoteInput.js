@@ -98,7 +98,7 @@ class RateQuoteInput extends Component {
             </DropdownButton>
           </div>
           <div id="button">
-             <Button variant="outline-info" onClick={this.handleClick}>Quote Rates</Button>
+             <Button id="rateQuoteButton" onClick={this.handleClick}>Quote Rates</Button>
           </div>
         </div>
         </div>
