@@ -1,7 +1,7 @@
 import React from 'react';
 import logo from './logo.svg';
 import RateQuoteInput from './components/RateQuoteInput.js';
-import Table from './components/Table.js';
+import RateQuoteTable from './components/Table.js';
 import './App.css';
 
 function App() {
@@ -11,7 +11,7 @@ function App() {
       <RateQuoteInput />
 
 
-      <Table />
+      <RateQuoteTable />
     </div>
   );
 }

@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { DropdownButton, Button, Dropdown, Form , Row, Col} from 'react-bootstrap';
-// import Dropdown from 'react-bootstrap/Dropdown';
-// import Button from 'react-bootstrap/Button';
+import { DropdownButton, Button, Dropdown, Form } from 'react-bootstrap';
 import { getRateQuotes } from '../actions';
 
 import '../css/RateQuoteInput.css';

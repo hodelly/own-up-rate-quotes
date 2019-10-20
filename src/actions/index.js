@@ -16,7 +16,8 @@ export function getRateQuotes(loan, credit, type, occupancy) {
         propertyType: type,
         occupancy: occupancy,
       }}).then((response) => {
-      console.log(response.data);
+        dispatch({ type: ActionTypes.GET_RATEQUOTES, payload: response.data });
+        console.log(response.data);
     }).catch((err) => {
       console.log(err.message);
     })
