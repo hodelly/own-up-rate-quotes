@@ -1,0 +1,78 @@
+.input_section {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  margin: 20px;
+
+}
+.input_column {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+.input {
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+  justify-content: center;
+  margin: 20px;
+}
+
+.input p {
+  margin: 5px;
+  font-size: 1rem;
+  font-weight: bold;
+}
+
+/* dropdown button styling */
+#dropbutton {
+  background-color: white;
+  outline-color: #0E4D44;
+  color: #0E4D44;
+  width: 200px;
+}
+
+a.dropitem:active {
+  background-color: #0E4D44;
+}
+
+/* form input styling */
+label.form-label {
+  margin: 5px;
+  font-weight: bold;
+}
+#creditScore, #loanSize {
+  width: 200px;
+  border-color:#0E4D44;
+}
+#creditScore:focus, #loanSize:focus, #dropbutton:focus {
+  border-color:#0E4D44;
+  box-shadow:0 0 0 0.2rem rgba(14, 77, 68, .25);
+}
+
+/* submit button styling*/
+#rateQuoteButton {
+  margin: 20px;
+  border-radius: 20px;
+  padding-left: 25px;
+  padding-right: 25px;
+  border-color: #383CDB;
+  background-color: white;
+  color: #383CDB;
+  font-weight: bold;
+}
+
+#rateQuoteButton:hover {
+  color:white;
+  border-color: #383CDB;
+  background-color: #383CDB;
+}
+#rateQuoteButton:active {
+  color:white;
+  border-color: #383CDB;
+  background-color: #383CDB;
+}
+#rateQuoteButton:focus {
+  box-shadow:0 0 0 0.2rem rgba(56, 60, 219, .25);
+}
