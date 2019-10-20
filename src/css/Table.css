@@ -1,0 +1,24 @@
+#rateQuoteTable {
+  width: 90vw;
+  display: flex;
+  margin: auto;
+  flex-direction: column;
+  align-items: center;
+}
+
+#rateQuoteTable * {
+  color: #0E4D44;
+}
+
+/* #pageBreak {
+  color: #92F5BF;
+
+}
+#tableTitle {
+  background-color: #92F5BF;
+  font-weight: bold;
+  font-size: 18px;
+  padding: 1px;
+  width: 100vw;
+  margin-bottom: 30px;
+} */

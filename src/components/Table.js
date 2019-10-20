@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Table } from 'react-bootstrap';
-
+import '../css/Table.css';
 
 class RateQuoteTable extends Component {
 
@@ -18,10 +18,10 @@ class RateQuoteTable extends Component {
           <tr>
             <td>{quote.lenderName}</td>
             <td>{quote.loanType}</td>
-            <td>{quote.interestRate}</td>
-            <td>{quote.closingCosts}</td>
-            <td>{quote.monthlyPayment}</td>
-            <td>{quote.apr}</td>
+            <td>{quote.interestRate.toFixed(3)}%</td>
+            <td>${quote.closingCosts.toFixed(2)}</td>
+            <td>${quote.monthlyPayment.toFixed(2)}</td>
+            <td>{quote.apr.toFixed(3)}%</td>
           </tr>
         )
       })
@@ -30,10 +30,19 @@ class RateQuoteTable extends Component {
 
   }
 
+  renderNoResults = () => {
+    if (this.props.quotes.rateQuotes !== undefined &&
+      this.props.quotes.rateQuotes.length === 0) {
+      return(
+        <div>Sorry there are no rates that matched your inputs</div>
+      )
+    }
+    return(<div />);
+  }
+
   render() {
-    // console.log(this.props.quotes.rateQuotes[0]);
     return(
-      <div>
+      <div id="rateQuoteTable">
         <Table striped bordered hover>
           <thead>
             <tr>
@@ -49,6 +58,7 @@ class RateQuoteTable extends Component {
             {this.renderInfo()}
           </tbody>
         </Table>
+        {this.renderNoResults()}
       </div>
     )
   }

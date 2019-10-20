@@ -5,22 +5,20 @@ import { getRateQuotes } from '../actions';
 
 import '../css/RateQuoteInput.css';
 
-
 class RateQuoteInput extends Component {
   constructor(props) {
     super(props);
     this.state = {
       loanSize: '',
       creditScore:'',
-      propertyType:'Property Type',
-      occupancy:'Occupancy',
+      propertyType:'',
+      occupancy:'',
+      showErrors: false,
+      errors: '',
 
     };
   }
-  testing = (num) => {
-    if (num === 0) return true;
-    else return false;
-  }
+
   handleChange = (event) => {
     this.setState({
       [event.target.id]: event.target.value,
@@ -36,22 +34,52 @@ class RateQuoteInput extends Component {
   }
 
   verifyInputs = () => {
+    // make sure all inputs have been entered
+    if (this.state.propertyType === '' || this.state.occupancy === '' ||
+        this.state.loanSize === '' || this.state.creditScore === '') {
+      this.setState({errors: 'emptyField'});
+      console.log(this.state.errors)
+      return false;
+    }
+
     // check credit score integer between 300 and 800
     if (300 > this.state.creditScore || this.state.creditScore > 800) {
+      this.setState({ errors: 'credit' });
+      console.log(this.state.errors)
+
       return false;
     }
-    // make sure all inputs have been entered
-    if (this.state.propertyType === 'Property Type' || this.state.occupancy === 'Occupancy' ||
-        this.state.loanSize === '' || this.state.creditScore === '') {
-      return false;
-    }
+
     return true;
   }
 
   handleClick = (event) => {
     if (this.verifyInputs()) {
       this.props.getRateQuotes(this.state.loanSize, this.state.creditScore, this.state.propertyType, this.state.occupancy);
+      this.setState({ showErrors: false });
+
+    } else {
+      this.setState({ showErrors: true });
+
     }
+  }
+
+  renderErrorMessage = () => {
+    if (this.state.showErrors) {
+      if ('credit' === this.state.errors) {
+        return(
+          <div id="creditError">*Credit Score must be between 300 and 800</div>
+        );
+      }
+      if ('emptyField' === this.state.errors) {
+        return(
+          <div id="fieldError">*Please fill out all fields</div>
+        );
+      }
+
+    }
+    return(<div />);
+
   }
 
   render() {
@@ -69,7 +97,7 @@ class RateQuoteInput extends Component {
 
           <Form.Group className="input">
             <Form.Label>Credit Score</Form.Label>
-            <Form.Control id="creditScore" type="number" onChange={this.handleChange}/>
+            <Form.Control id="creditScore" type="integer" onChange={this.handleChange}/>
           </Form.Group>
         </div>
         <div className="input_column">
@@ -95,6 +123,7 @@ class RateQuoteInput extends Component {
               <Dropdown.Item onClick={this.handleOccupancyChange} className="dropitem" id="Investment">Investment</Dropdown.Item>
             </DropdownButton>
           </div>
+          {this.renderErrorMessage()}
           <div id="button">
              <Button id="rateQuoteButton" onClick={this.handleClick}>Quote Rates</Button>
           </div>
