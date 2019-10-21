@@ -15,18 +15,16 @@ describe("Table component", () => {
   let store;
   let component;
 
-  // beforeEach(() => {
-    store = mockStore({
-      quotes:[],
-      loading: false,
-      error: false,
-    });
-    component = renderer.create(
-      <Provider store={store}>
-        <RateQuoteTable />
-      </Provider>
-    );
-  // });
+  store = mockStore({
+    quotes:[],
+    loading: false,
+    error: false,
+  });
+  component = renderer.create(
+    <Provider store={store}>
+      <RateQuoteTable />
+    </Provider>
+  );
 
   it('should render with given state from Redux store', () => {
     expect(component.toJSON()).toMatchSnapshot();

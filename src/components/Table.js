@@ -34,18 +34,18 @@ class RateQuoteTable extends Component {
   }
 
   renderNoResults = () => {
-
-    if (this.props.quotes !== undefined && this.props.quotes.rateQuotes !== undefined &&
-      this.props.quotes.rateQuotes.length === 0) {
-      return(
-        <div>Sorry there are no rates that matched your inputs</div>
-      );
-    }
-
     // shows a spinner while we are waiting for API results
     if(this.props.loading) {
       return (
         <Spinner animation="border" variant="secondary" />
+      );
+    }
+
+    // shows message when no matches
+    if (this.props.quotes !== undefined && this.props.quotes.rateQuotes !== undefined &&
+      this.props.quotes.rateQuotes.length === 0) {
+      return(
+        <div>Sorry there are no rates that matched your inputs</div>
       );
     }
 
@@ -59,6 +59,7 @@ class RateQuoteTable extends Component {
   }
 
   render() {
+    console.log(this.props.loading);
     return(
       <div id="rateQuoteTable">
         <Table striped bordered hover>

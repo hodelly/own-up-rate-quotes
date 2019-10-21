@@ -20,6 +20,11 @@ class RateQuoteInput extends Component {
 
   /* On change methods */
   handleChange = (event) => {
+    if (event.target.id === 'loanSize') {
+      this.setState({
+        [event.target.id]: "$" + event.target.value,
+      });
+    }
     this.setState({
       [event.target.id]: event.target.value,
     });
@@ -81,18 +86,19 @@ class RateQuoteInput extends Component {
 
   render() {
     return(
-      <Form>
+      <Form className="form">
         <div className="input_section">
           <div className="input_column">
 
             <Form.Group className="input">
               <Form.Label>Loan Size</Form.Label>
+              <p id="dollarSign">$</p>
               <Form.Control id="loanSize" type="number" onChange={this.handleChange}/>
             </Form.Group>
 
             <Form.Group className="input">
               <Form.Label>Credit Score</Form.Label>
-              <Form.Control id="creditScore" type="number" onChange={this.handleChange}/>
+              <Form.Control id="creditScore" type="number" min="300" max="800" onChange={this.handleChange}/>
             </Form.Group>
 
           </div>
@@ -115,15 +121,14 @@ class RateQuoteInput extends Component {
                 <Dropdown.Item onClick={this.handleOccupancyChange} className="dropitem" id="Investment">Investment</Dropdown.Item>
               </DropdownButton>
             </div>
-
-            {this.renderErrorMessage()}
-
             <div id="button">
                <Button id="rateQuoteButton" onClick={this.handleClick}>Quote Rates</Button>
             </div>
-
           </div>
         </div>
+        {this.renderErrorMessage()}
+
+
       </Form>
 
 

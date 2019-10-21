@@ -6,7 +6,6 @@ import renderer from 'react-test-renderer';
 import { create } from "react-test-renderer";
 import { ActionTypes } from '../actions';
 import RateQuoteInput from '../components/RateQuoteInput';
-// import reducers from '../reducers';
 
 const mockStore = configureStore([]);
 
@@ -46,19 +45,6 @@ describe("RateQuoteInput component", () => {
   });
 });
 
-// describe('<RateQuoteInput />', function() {
-//   it('should return false', function() {
-//       testing(0).should.equal(false);
-//   })
-//   // it('renders without crashing', function() {
-//   //   const div = document.createElement('div');
-//   //   ReactDOM.render(
-//   //     <RateQuoteInput />, div
-//   //   );
-//   //   // ReactDOM.render(<App />, div);
-//   //   // ReactDOM.unmountComponentAtNode(div);
-//   // });
-// })
 
 
 // describe('#testing', function() {
