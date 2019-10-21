@@ -5,7 +5,7 @@ import { getRateQuotes } from '../actions';
 
 import '../css/RateQuoteInput.css';
 
-class RateQuoteInput extends Component {
+export class RateQuoteInput extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -15,16 +15,12 @@ class RateQuoteInput extends Component {
       occupancy:'',
       showErrors: false,
       errors: '',
+      isEditing: false,
     };
   }
 
   /* On change methods */
   handleChange = (event) => {
-    if (event.target.id === 'loanSize') {
-      this.setState({
-        [event.target.id]: "$" + event.target.value,
-      });
-    }
     this.setState({
       [event.target.id]: event.target.value,
     });
@@ -38,16 +34,27 @@ class RateQuoteInput extends Component {
     this.setState({occupancy: event.target.id});
   }
 
+  /* Formats the loan size number to have commas every 3 digits */
+  toCurrency(number) {
+    const formatter = new Intl.NumberFormat();
+    if (formatter.format(number) === '0') return '';
+    return formatter.format(number);
+  }
+
+  toggleEditing = () => {
+    this.setState({ isEditing: !this.state.isEditing });
+  }
+
   /* Verifies inputs are in correct form before sending to API */
-  verifyInputs = () => {
+  verifyInputs = (state) => {
     // make sure all inputs have been entered
-    if (this.state.propertyType === '' || this.state.occupancy === '' ||
-        this.state.loanSize === '' || this.state.creditScore === '') {
+    if (state.propertyType === '' || state.occupancy === '' ||
+        state.loanSize === '' || state.creditScore === '') {
       this.setState({errors: 'emptyField'});
       return false;
     }
     // check credit score integer between 300 and 800
-    if (300 > this.state.creditScore || this.state.creditScore > 800 || !Number.isInteger(Number(this.state.creditScore))) {
+    if (300 > state.creditScore || state.creditScore > 800 || !Number.isInteger(Number(state.creditScore))) {
       this.setState({ errors: 'credit' });
       return false;
     }
@@ -56,7 +63,7 @@ class RateQuoteInput extends Component {
 
   /* if inputs are verfied, sends inputs to API or it shows errors */
   handleClick = (event) => {
-    if (this.verifyInputs()) {
+    if (this.verifyInputs(this.state)) {
       this.props.getRateQuotes(this.state.loanSize, this.state.creditScore,
         this.state.propertyType.replace(/\s/g, ''), this.state.occupancy.replace(" Residence", ''));
       this.setState({ showErrors: false });
@@ -78,10 +85,8 @@ class RateQuoteInput extends Component {
           <div className="error">*Please fill out all fields</div>
         );
       }
-
     }
     return(<div className="error"/>);
-
   }
 
   render() {
@@ -93,7 +98,22 @@ class RateQuoteInput extends Component {
             <Form.Group className="input">
               <Form.Label>Loan Size</Form.Label>
               <p id="dollarSign">$</p>
-              <Form.Control id="loanSize" type="number" onChange={this.handleChange}/>
+              {this.state.isEditing ? (
+                <Form.Control
+                  type="number"
+                  id="loanSize"
+                  onChange={this.handleChange}
+                  onBlur={this.toggleEditing}
+                />
+              ) : (
+                <Form.Control
+                  type="text"
+                  id="loanSize"
+                  value={this.toCurrency(this.state.loanSize)}
+                  onFocus={this.toggleEditing}
+                  readOnly
+                />
+              )}
             </Form.Group>
 
             <Form.Group className="input">
@@ -127,13 +147,8 @@ class RateQuoteInput extends Component {
           </div>
         </div>
         {this.renderErrorMessage()}
-
-
       </Form>
-
-
     )
-
   }
 }
 export default connect(null, { getRateQuotes })(RateQuoteInput);

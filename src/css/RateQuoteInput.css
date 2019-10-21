@@ -51,6 +51,7 @@ label.form-label {
 #loanSize {
   padding-left: 18px;
   padding-top: 5px;
+  background-color: white;
 }
 #creditScore:focus, #loanSize:focus, #dropbutton:focus {
   border-color:#0E4D44;
@@ -106,7 +107,6 @@ a.dropitem:active {
 }
 
 /* error styling */
-
 .error{
   color: red;
   margin-right: 20px;
