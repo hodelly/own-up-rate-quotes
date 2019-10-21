@@ -6,13 +6,13 @@ This is a frontend webpage created with React and Redux I created for Own Up. Th
 
 ## Installation
 
-1. Clone the repository to your local computer
+1. Clone the repository to your local computer<br />
 `git clone https://github.com/hodelly/own-up-rate-quotes.git`
 
-2. Move into the project directory and install the Node dependencies
+2. Move into the project directory and install the Node dependencies<br />
 `cd own-up-rate-quotes && npm install`
 
-3. Run the app in development mode
+3. Run the app in development mode<br />
 `npm start`
 
 This will automatically open [http://localhost:3000](http://localhost:3000)
@@ -21,7 +21,7 @@ You will also see any lint errors in the console.
 
 ## Testing
 
-In the project directory, you can run:
+In the project directory, you can run:<br />
 `npm test`
 
 Launches the test runner in the interactive watch mode.<br />
