@@ -35,11 +35,20 @@ class RateQuoteTable extends Component {
       this.props.quotes.rateQuotes.length === 0) {
       return(
         <div>Sorry there are no rates that matched your inputs</div>
-      )
+      );
     }
+
+    // shows a spinner while we are waiting for API results
     if(this.props.loading) {
       return (
         <Spinner animation="border" variant="secondary" />
+      );
+    }
+    
+    // if the API response was an error
+    if(this.props.error) {
+      return(
+        <div>Sorry an error occured while we were trying to fetch your results</div>
       );
     }
     return(<div />);
@@ -67,14 +76,13 @@ class RateQuoteTable extends Component {
       </div>
     )
   }
-
-
 }
 
 const mapStateToProps = state => (
   {
     quotes: state.quotes.all,
     loading: state.loading.status,
+    error: state.error.status,
   }
 );
 

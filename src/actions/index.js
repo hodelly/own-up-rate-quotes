@@ -6,8 +6,14 @@ const APIKEY = 'RG-AUTH 91b87baf-8bec-403b-bca4-de1bb66d5e12';
 export const ActionTypes = {
   GET_RATEQUOTES: 'GET_RATEQUOTES',
   LOADING: 'LOADING',
+  ERROR: 'ERROR',
 }
 
+/**
+sends inputs to API as query parameters
+while waiting for API response, dispatches loading state as true
+dispatches API results
+**/
 export function getRateQuotes(loan, credit, type, occupancy) {
   return (dispatch) => {
     dispatch({ type: ActionTypes.LOADING, payload: true});
@@ -20,9 +26,10 @@ export function getRateQuotes(loan, credit, type, occupancy) {
       }}).then((response) => {
         dispatch({ type: ActionTypes.GET_RATEQUOTES, payload: response.data });
         dispatch({ type: ActionTypes.LOADING, payload: false});
-        console.log(response.data);
     }).catch((err) => {
+      dispatch({ type: ActionTypes.ERROR, payload: true });
       console.log(err.message);
+      dispatch({ type: ActionTypes.LOADING, payload: false});
     })
   }
 
