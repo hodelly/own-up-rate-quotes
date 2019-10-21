@@ -34,5 +34,17 @@ npm test
 
 This launches the test runner in the interactive watch mode.<br />
 
+### App Tests
+This test makes sure the site loads properly without crashing.
+
+### Rate Quote Input Tests
+
+### Rate Quote Table Tests
+These tests to assert the Table component renders correctly no matter what the values of the redux store are. I used snapshots to make sure the component rendered correctly. I took the following snapshots:
+* initial redux store
+* table loading
+* API error response
+* API success response with table filled in
+
 ## Tools & Libraries
-This project was created using [Create React App](https://github.com/facebook/create-react-app). I also used [React Bootstrap](https://react-bootstrap.github.io/) to help with styling, and Axios to make calls to the API.
+This project was created using [Create React App](https://github.com/facebook/create-react-app). I also used [React Bootstrap](https://react-bootstrap.github.io/) to help with styling. I implemented Bootstrap because it makes creating clean components easy. I also noticed that Own Up uses Bootstrap, and one of my goals was to match their style and color scheme. Lastly, I used Axios to make calls to the API, because I find it easy to use and makes for readable asynchronous code.

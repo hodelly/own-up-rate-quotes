@@ -18,7 +18,7 @@ class RateQuoteInput extends Component {
     };
   }
 
-  // on change methods
+  /* On change methods */
   handleChange = (event) => {
     this.setState({
       [event.target.id]: event.target.value,
@@ -33,7 +33,7 @@ class RateQuoteInput extends Component {
     this.setState({occupancy: event.target.id});
   }
 
-  // Verifies inputs are in correct form before sending to API
+  /* Verifies inputs are in correct form before sending to API */
   verifyInputs = () => {
     // make sure all inputs have been entered
     if (this.state.propertyType === '' || this.state.occupancy === '' ||
@@ -49,7 +49,7 @@ class RateQuoteInput extends Component {
     return true;
   }
 
-  // if inputs are verfied, sends inputs to API or it shows errors
+  /* if inputs are verfied, sends inputs to API or it shows errors */
   handleClick = (event) => {
     if (this.verifyInputs()) {
       this.props.getRateQuotes(this.state.loanSize, this.state.creditScore,
@@ -60,6 +60,7 @@ class RateQuoteInput extends Component {
     }
   }
 
+  /* error messages if user tries to submit incorrect loan information */
   renderErrorMessage = () => {
     if (this.state.showErrors) {
       if ('credit' === this.state.errors) {

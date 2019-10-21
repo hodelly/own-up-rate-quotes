@@ -24,12 +24,12 @@ export function getRateQuotes(loan, credit, type, occupancy) {
         propertyType: type,
         occupancy: occupancy,
       }}).then((response) => {
-        dispatch({ type: ActionTypes.GET_RATEQUOTES, payload: response.data });
         dispatch({ type: ActionTypes.LOADING, payload: false});
+        dispatch({ type: ActionTypes.GET_RATEQUOTES, payload: response.data });
+        console.log(response.data)
     }).catch((err) => {
-      dispatch({ type: ActionTypes.ERROR, payload: true });
-      console.log(err.message);
       dispatch({ type: ActionTypes.LOADING, payload: false});
+      dispatch({ type: ActionTypes.ERROR, payload: true });
     })
   }
 

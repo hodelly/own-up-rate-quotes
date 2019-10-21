@@ -1,24 +1,77 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
-import { createStore, applyMiddleware, compose } from 'redux';
-import thunk from 'redux-thunk';
+import configureStore from 'redux-mock-store';
+import renderer from 'react-test-renderer';
 import RateQuoteTable from '../components/Table';
 import { create } from "react-test-renderer";
-import reducers from '../reducers';
+import { ActionTypes } from '../actions';
 
 
+const mockStore = configureStore([]);
 
 
 describe("Table component", () => {
-  const store = createStore(reducers, {}, compose(
-    applyMiddleware(thunk),
-  ));
-  // test("Matches the snapshot", () => {
-  //   const component = create(<Provider store = {store}><RateQuoteInput /></Provider>);
-  //   expect(input.toJSON()).toMatchSnapshot();
+  let store;
+  let component;
+
+  // beforeEach(() => {
+    store = mockStore({
+      quotes:[],
+      loading: false,
+      error: false,
+    });
+    component = renderer.create(
+      <Provider store={store}>
+        <RateQuoteTable />
+      </Provider>
+    );
   // });
-  test("when loading", () => {
+
+  it('should render with given state from Redux store', () => {
+    expect(component.toJSON()).toMatchSnapshot();
+  });
+
+  store = mockStore({
+    quotes:[],
+    loading: true,
+    error: false,
+  });
+
+  it('should render loading spinner', () => {
+    // expect(store.dispatch).toHaveBeenCalledWith(
+    //   dispatch({ type: ActionTypes.LOADING, payload: true })
+    // );
+    expect(component.toJSON()).toMatchSnapshot();
 
   });
+
+  store = mockStore({
+    quotes:[],
+    loading: false,
+    error: true,
+  });
+
+  it('should render error', () => {
+    expect(component.toJSON()).toMatchSnapshot();
+  });
+
+  store = mockStore({
+    quotes:[{
+      apr: 13.499999999999998,
+      closingCosts: 1000.04,
+      interestRate: 4.5,
+      lenderName: "TFB Federal Credit Union",
+      loanType: "7/1 ARM",
+      monthlyPayment: 0.020267,
+    }],
+    loading: false,
+    error: false,
+  });
+
+  it('should render table', () => {
+    expect(component.toJSON()).toMatchSnapshot();
+  });
+
+
 });
