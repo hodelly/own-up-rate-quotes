@@ -4,8 +4,11 @@ import { Provider } from 'react-redux';
 import configureStore from 'redux-mock-store';
 import renderer from 'react-test-renderer';
 import { create } from "react-test-renderer";
-import { ActionTypes } from '../actions';
+import { verifyInputs } from '../components/RateQuoteInput';
 import RateQuoteInput from '../components/RateQuoteInput';
+import { shallow, configure } from 'enzyme';
+import Adapter from 'enzyme-adapter-react-16'
+configure({ adapter: new Adapter() })
 
 const mockStore = configureStore([]);
 
@@ -24,44 +27,28 @@ describe("RateQuoteInput component", () => {
       <RateQuoteInput />
     </Provider>
   );
-  // const store = createStore(reducers, {}, compose(
-  //   applyMiddleware(thunk),
-  // ));
-  // test("Matches the snapshot", () => {
-  //   const component = create(<Provider store = {store}><RateQuoteInput /></Provider>);
-  //   expect(input.toJSON()).toMatchSnapshot();
-  // });
-  test("Inputs are correctly checked", () => {
-    // const component = create(<Provider store = {store}><RateQuoteInput /></Provider>);
-    const instance = component.root;
-    instance.setState({
-      loanSize: '',
-      creditScore:'',
-      propertyType:'',
-      occupancy:'',
-    });
-    instance.verifyInputs();
-    expect(instance.state.errors).toBe("emptyField");
+
+  it('should match initial snapshot', () => {
+      expect(component.toJSON()).toMatchSnapshot();
   });
+
+  // it('should return false', () => {
+  //   const wrapper = shallow(
+  //     <Provider store={store}>
+  //       <RateQuoteInput />
+  //     </Provider>
+  //   );
+  //   const instance = wrapper.instance();
+  //   expect(wrapper.state('loanSize')).toBe('');
+  //   expect(instance.verifyInputs()).toBe(false);
+
+    // const state = {
+    //   loanSize: '',
+    //   creditScore:'',
+    //   propertyType:'',
+    //   occupancy:'',
+    // };
+    // expect(state.verifyInputs).to.equal(false);
+  })
+
 });
-
-
-
-// describe('#testing', function() {
-
-// })
-// describe('#verifyInputs', () => {
-//   context('when invalid arguments', () => {
-//     it('should return false', () => {
-//       () => {
-//         let state = {
-//           loanSize: '',
-//           creditScore:'',
-//           propertyType:'Property Type',
-//           occupancy:'Occupancy',
-//         }
-//         verifyInputs();
-//       }.should.equal(false);
-//     })
-//   })
-// })

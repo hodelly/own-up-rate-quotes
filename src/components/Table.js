@@ -59,7 +59,6 @@ class RateQuoteTable extends Component {
   }
 
   render() {
-    console.log(this.props.loading);
     return(
       <div id="rateQuoteTable">
         <Table striped bordered hover>

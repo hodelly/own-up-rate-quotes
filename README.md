@@ -11,12 +11,17 @@ This is a frontend webpage created with React and Redux I created for Own Up. Th
 git clone https://github.com/hodelly/own-up-rate-quotes.git
 ```
 
-2. Move into the project directory and install the Node dependencies<br />
+2. Move into the project directory<br />
 ```
-cd own-up-rate-quotes && npm install
+cd own-up-rate-quotes
 ```
 
-3. Run the app in development mode<br />
+3. Install the Node dependencies<br />
+```
+npm install
+```
+
+4. Run the app in development mode<br />
 ```
 npm start
 ```
@@ -38,13 +43,19 @@ This launches the test runner in the interactive watch mode.<br />
 This test makes sure the site loads properly without crashing.
 
 ### Rate Quote Input Tests
+These tests are to confirm the Input component renders and checks the input parameters correctly before sending them to the API. I created the following tests:
+* initial snapshot of input section
+
 
 ### Rate Quote Table Tests
-These tests to assert the Table component renders correctly no matter what the values of the redux store are. I used snapshots to make sure the component rendered correctly. I took the following snapshots:
+These tests are to assert the Table component renders correctly no matter what the values of the redux store are. I used snapshots to make sure the component rendered correctly. I took the following snapshots:
 * initial redux store
 * table loading
 * API error response
 * API success response with table filled in
 
 ## Tools & Libraries
-This project was created using [Create React App](https://github.com/facebook/create-react-app). I also used [React Bootstrap](https://react-bootstrap.github.io/) to help with styling. I implemented Bootstrap because it makes creating clean components easy. I also noticed that Own Up uses Bootstrap, and one of my goals was to match their style and color scheme. Lastly, I used Axios to make calls to the API, because I find it easy to use and makes for readable asynchronous code.
+This project was created using [Create React App](https://github.com/facebook/create-react-app).<br />
+I also used [React Bootstrap](https://react-bootstrap.github.io/) to help with styling. I implemented Bootstrap because it makes creating clean components easy. I also noticed that Own Up uses Bootstrap, and one of my goals was to match their style and color scheme.<br />
+I used Axios to make calls to the API, because I find it easy to use and makes for readable asynchronous code.<br />
+For testing I used Jest snapshots
