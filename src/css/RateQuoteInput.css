@@ -90,13 +90,8 @@ label.form-label {
 }
 
 /* error styling */
-#fieldError{
+.error{
   color: red;
   margin-right: 20px;
-}
-#creditError {
-  color: red;
-  float: left;
-  margin-right: 20px;
-
+  height: 20px;
 }
