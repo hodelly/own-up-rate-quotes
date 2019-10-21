@@ -31,6 +31,15 @@
   outline-color: #0E4D44;
   color: #0E4D44;
   width: 200px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 37.99px;
+}
+
+#dropbutton:empty::after {
+  margin-left:auto;
 }
 
 a.dropitem:active {
@@ -45,6 +54,8 @@ label.form-label {
 #creditScore, #loanSize {
   width: 200px;
   border-color:#0E4D44;
+  color: #0E4D44;
+
 }
 #creditScore:focus, #loanSize:focus, #dropbutton:focus {
   border-color:#0E4D44;
@@ -61,6 +72,7 @@ label.form-label {
   background-color: white;
   color: #383CDB;
   font-weight: bold;
+  font-size: 18px;
 }
 
 #rateQuoteButton:hover {
@@ -75,4 +87,16 @@ label.form-label {
 }
 #rateQuoteButton:focus {
   box-shadow:0 0 0 0.2rem rgba(56, 60, 219, .25);
+}
+
+/* error styling */
+#fieldError{
+  color: red;
+  margin-right: 20px;
+}
+#creditError {
+  color: red;
+  float: left;
+  margin-right: 20px;
+
 }

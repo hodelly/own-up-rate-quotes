@@ -1,12 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { DropdownButton, Button, Dropdown, Form , Row, Col} from 'react-bootstrap';
-// import Dropdown from 'react-bootstrap/Dropdown';
-// import Button from 'react-bootstrap/Button';
+import { DropdownButton, Button, Dropdown, Form } from 'react-bootstrap';
 import { getRateQuotes } from '../actions';
 
 import '../css/RateQuoteInput.css';
-
 
 class RateQuoteInput extends Component {
   constructor(props) {
@@ -14,15 +11,14 @@ class RateQuoteInput extends Component {
     this.state = {
       loanSize: '',
       creditScore:'',
-      propertyType:'Property Type',
-      occupancy:'Occupancy',
+      propertyType:'',
+      occupancy:'',
+      showErrors: false,
+      errors: '',
 
     };
   }
-  testing = (num) => {
-    if (num === 0) return true;
-    else return false;
-  }
+
   handleChange = (event) => {
     this.setState({
       [event.target.id]: event.target.value,
@@ -38,22 +34,49 @@ class RateQuoteInput extends Component {
   }
 
   verifyInputs = () => {
-    // check credit score integer between 300 and 800
-    if (300 > this.state.creditScore || this.state.creditScore > 800) {
-      return false;
-    }
     // make sure all inputs have been entered
-    if (this.state.propertyType === 'Property Type' || this.state.occupancy === 'Occupancy' ||
+    if (this.state.propertyType === '' || this.state.occupancy === '' ||
         this.state.loanSize === '' || this.state.creditScore === '') {
+      this.setState({errors: 'emptyField'});
       return false;
     }
+
+    // check credit score integer between 300 and 800
+    if (300 > this.state.creditScore || this.state.creditScore > 800 || !Number.isInteger(Number(this.state.creditScore))) {
+      this.setState({ errors: 'credit' });
+      return false;
+    }
+
     return true;
   }
 
   handleClick = (event) => {
     if (this.verifyInputs()) {
       this.props.getRateQuotes(this.state.loanSize, this.state.creditScore, this.state.propertyType, this.state.occupancy);
+      this.setState({ showErrors: false });
+
+    } else {
+      this.setState({ showErrors: true });
+
     }
+  }
+
+  renderErrorMessage = () => {
+    if (this.state.showErrors) {
+      if ('credit' === this.state.errors) {
+        return(
+          <div id="creditError">*Credit Score must be an integer between 300 and 800</div>
+        );
+      }
+      if ('emptyField' === this.state.errors) {
+        return(
+          <div id="fieldError">*Please fill out all fields</div>
+        );
+      }
+
+    }
+    return(<div />);
+
   }
 
   render() {
@@ -88,8 +111,6 @@ class RateQuoteInput extends Component {
 
           </div>
           <div className="input">
-
-
             <p>Occupancy</p>
             <DropdownButton id="dropbutton" variant="secondary" title={this.state.occupancy} onChange={this.handleChange}>
               <Dropdown.Item onClick={this.handleOccupancyChange} className="dropitem" id="Primary">Primary Residence</Dropdown.Item>
@@ -97,6 +118,7 @@ class RateQuoteInput extends Component {
               <Dropdown.Item onClick={this.handleOccupancyChange} className="dropitem" id="Investment">Investment</Dropdown.Item>
             </DropdownButton>
           </div>
+          {this.renderErrorMessage()}
           <div id="button">
              <Button id="rateQuoteButton" onClick={this.handleClick}>Quote Rates</Button>
           </div>
