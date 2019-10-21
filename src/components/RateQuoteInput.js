@@ -5,7 +5,7 @@ import { getRateQuotes } from '../actions';
 
 import '../css/RateQuoteInput.css';
 
-class RateQuoteInput extends Component {
+export class RateQuoteInput extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -46,15 +46,15 @@ class RateQuoteInput extends Component {
   }
 
   /* Verifies inputs are in correct form before sending to API */
-  verifyInputs = () => {
+  verifyInputs = (state) => {
     // make sure all inputs have been entered
-    if (this.state.propertyType === '' || this.state.occupancy === '' ||
-        this.state.loanSize === '' || this.state.creditScore === '') {
+    if (state.propertyType === '' || state.occupancy === '' ||
+        state.loanSize === '' || state.creditScore === '') {
       this.setState({errors: 'emptyField'});
       return false;
     }
     // check credit score integer between 300 and 800
-    if (300 > this.state.creditScore || this.state.creditScore > 800 || !Number.isInteger(Number(this.state.creditScore))) {
+    if (300 > state.creditScore || state.creditScore > 800 || !Number.isInteger(Number(state.creditScore))) {
       this.setState({ errors: 'credit' });
       return false;
     }
@@ -63,7 +63,7 @@ class RateQuoteInput extends Component {
 
   /* if inputs are verfied, sends inputs to API or it shows errors */
   handleClick = (event) => {
-    if (this.verifyInputs()) {
+    if (this.verifyInputs(this.state)) {
       this.props.getRateQuotes(this.state.loanSize, this.state.creditScore,
         this.state.propertyType.replace(/\s/g, ''), this.state.occupancy.replace(" Residence", ''));
       this.setState({ showErrors: false });

@@ -45,7 +45,7 @@ class RateQuoteTable extends Component {
     if (this.props.quotes !== undefined && this.props.quotes.rateQuotes !== undefined &&
       this.props.quotes.rateQuotes.length === 0) {
       return(
-        <div>Sorry there are no rates that matched your inputs</div>
+        <div>Sorry there are no rates that match your inputs</div>
       );
     }
 
