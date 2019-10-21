@@ -7,11 +7,10 @@ function App() {
   return (
     <div className="App">
       <header className="App-header">
-      <img src="./ownUpLogo.png" className="App-logo" alt="logo" />
-      Own Up.
+        <img src="./ownUpLogo.png" className="App-logo" alt="logo" />
+        Own Up.
       </header>
       <RateQuoteInput />
-
 
       <RateQuoteTable />
     </div>

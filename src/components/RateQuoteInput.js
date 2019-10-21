@@ -38,15 +38,12 @@ class RateQuoteInput extends Component {
     if (this.state.propertyType === '' || this.state.occupancy === '' ||
         this.state.loanSize === '' || this.state.creditScore === '') {
       this.setState({errors: 'emptyField'});
-      console.log(this.state.errors)
       return false;
     }
 
     // check credit score integer between 300 and 800
-    if (300 > this.state.creditScore || this.state.creditScore > 800) {
+    if (300 > this.state.creditScore || this.state.creditScore > 800 || !Number.isInteger(Number(this.state.creditScore))) {
       this.setState({ errors: 'credit' });
-      console.log(this.state.errors)
-
       return false;
     }
 
@@ -68,7 +65,7 @@ class RateQuoteInput extends Component {
     if (this.state.showErrors) {
       if ('credit' === this.state.errors) {
         return(
-          <div id="creditError">*Credit Score must be between 300 and 800</div>
+          <div id="creditError">*Credit Score must be an integer between 300 and 800</div>
         );
       }
       if ('emptyField' === this.state.errors) {
@@ -97,7 +94,7 @@ class RateQuoteInput extends Component {
 
           <Form.Group className="input">
             <Form.Label>Credit Score</Form.Label>
-            <Form.Control id="creditScore" type="integer" onChange={this.handleChange}/>
+            <Form.Control id="creditScore" type="number" onChange={this.handleChange}/>
           </Form.Group>
         </div>
         <div className="input_column">
@@ -114,8 +111,6 @@ class RateQuoteInput extends Component {
 
           </div>
           <div className="input">
-
-
             <p>Occupancy</p>
             <DropdownButton id="dropbutton" variant="secondary" title={this.state.occupancy} onChange={this.handleChange}>
               <Dropdown.Item onClick={this.handleOccupancyChange} className="dropitem" id="Primary">Primary Residence</Dropdown.Item>

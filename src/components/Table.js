@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Table } from 'react-bootstrap';
+import { Table, Spinner } from 'react-bootstrap';
 import '../css/Table.css';
 
 class RateQuoteTable extends Component {
@@ -26,7 +26,7 @@ class RateQuoteTable extends Component {
         )
       })
     }
-    return (<div/>)
+    return (<tr/>);
 
   }
 
@@ -36,6 +36,11 @@ class RateQuoteTable extends Component {
       return(
         <div>Sorry there are no rates that matched your inputs</div>
       )
+    }
+    if(this.props.loading) {
+      return (
+        <Spinner animation="border" variant="secondary" />
+      );
     }
     return(<div />);
   }
@@ -69,6 +74,7 @@ class RateQuoteTable extends Component {
 const mapStateToProps = state => (
   {
     quotes: state.quotes.all,
+    loading: state.loading.status,
   }
 );
 
