@@ -13,8 +13,7 @@ class RateQuoteTable extends Component {
 
   renderInfo = () => {
     if (this.props.quotes !== undefined) {
-      if (this.props.quotes.rateQuotes !== undefined) {
-        return this.props.quotes.rateQuotes.map((quote, id) => {
+        return this.props.quotes.map((quote, id) => {
           return(
             <tr>
               <td>{quote.lenderName}</td>
@@ -26,7 +25,6 @@ class RateQuoteTable extends Component {
             </tr>
           )
         })
-      }
     }
 
     return (<tr/>);
@@ -84,7 +82,7 @@ class RateQuoteTable extends Component {
 
 const mapStateToProps = state => (
   {
-    quotes: state.quotes.all,
+    quotes: state.quotes.rateQuotes,
     loading: state.loading.status,
     error: state.error.status,
   }
